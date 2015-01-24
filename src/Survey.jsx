@@ -29,11 +29,13 @@ export default React.createClass({
 		)
 	},
 
-	_prevStep() {
-		e.preventDefault()
+	_prevStep(event) {
+		event.preventDefault()
+
+		this.props.prevStep()
 	},
 
-	_nextStep() {
+	_nextStep(event) {
 		let data = {
 			survey: {
 				question_1: this.refs.question_1.getDOMNode().value,
@@ -41,9 +43,9 @@ export default React.createClass({
 			}
 		}
 
-		e.preventDefault()
+		event.preventDefault()
 
-		this.props.saveFields(data)
+		this.props.saveValues(data)
 		this.props.nextStep()
 	}
 

@@ -22,9 +22,7 @@ var Registration = React.createClass({
 	name: 'Registration',
 
 	getInitialState() {
-		return {
-			step: 1
-		};
+		return { step: 1 }
 	},
 
 	render() {
@@ -50,18 +48,22 @@ var Registration = React.createClass({
 	},
 
 	nextStep() {
-		this.setState({
-			step: this.state.step + 1
-		})
+		this.setState({ step: this.state.step + 1 })
 	},
 
 	prevStep() {
-		this.setState({
-			step: this.state.step - 1
-		})
+		this.setState({ step: this.state.step - 1 })
 	},
 
 	reset() {
+		fieldValues = {
+			name: '',
+			email: '',
+			password: '',
+			age: '',
+			colors: []
+		}
+
 		this.setState({ step: 1 })
 	},
 

@@ -37,7 +37,7 @@ export default React.createClass({
 				</div>
 				<div className="form-group">
 					<label htmlFor="email">Email</label>
-					<input ref="email" className="form-control" type="email" name="email" id="email" placeholder="Enter your email..." />
+					<input ref="email" className="form-control" type="email" name="email" id="email" placeholder="Enter your email..." defaultValue={ this.state.email } />
 				</div>
 				<button className="btn btn-primary pull-right" onClick={ this.nextStep }>Next step</button>
 			</div>
