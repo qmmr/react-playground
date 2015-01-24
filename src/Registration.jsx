@@ -5,6 +5,7 @@ import objectAssign from 'object-assign'
 
 import AccountFields from './AccountFields.jsx'
 import Survey from './Survey.jsx'
+import Results from './Results.jsx'
 // import Confirmation from './Confirmation.jsx'
 // import Success from './Success.jsx'
 
@@ -59,6 +60,11 @@ var Registration = React.createClass({
 			step: this.state.step - 1
 		})
 	},
+
+	reset() {
+		this.setState({ step: 1 })
+	},
+
 	_showStep() {
 		switch(this.state.step) {
 			case 1:
@@ -72,6 +78,12 @@ var Registration = React.createClass({
 						fieldValues={ fieldValues }
 						nextStep={ this.nextStep }
 						prevStep={ this.prevStep }
+						saveValues={ this.saveValues } />
+			case 3:
+				return <Results
+						fieldValues={ fieldValues }
+						prevStep={ this.prevStep }
+						reset={ this.reset }
 						saveValues={ this.saveValues } />
 		}
 	}
