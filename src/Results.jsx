@@ -23,7 +23,7 @@ export default React.createClass({
 			<div className="col-md-10 col-md-offset-1">
 				<h1>Results</h1>
 				{ this.getResults() }
-				<button className="btn btn-primary" onClick={ this._reset }>Prev step</button>
+				<button className="btn btn-primary" onClick={ this._prevStep }>Prev step</button>
 				<button className="btn btn-warning pull-right" onClick={ this._reset }>Reset</button>
 			</div>
 		)

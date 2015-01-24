@@ -36,6 +36,10 @@ export default React.createClass({
 					<input ref="password" className="form-control" type="password" name="password" id="password" placeholder="Enter your password..." />
 				</div>
 				<div className="form-group">
+					<label htmlFor="password-confirm">Confirm password</label>
+					<input ref="password-confirm" className="form-control" type="password" name="password-confirm" id="password-confirm" placeholder="Confirm your password..." />
+				</div>
+				<div className="form-group">
 					<label htmlFor="email">Email</label>
 					<input ref="email" className="form-control" type="email" name="email" id="email" placeholder="Enter your email..." defaultValue={ this.state.email } />
 				</div>
