@@ -1,0 +1,21 @@
+{
+  "name": "react-playground",
+  "version": "0.0.1",
+  "homepage": "https://github.com/qmmr/react-playground",
+  "authors": [
+    "kumeek@gmail.com"
+  ],
+  "description": "React.js playground",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "ISC",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
