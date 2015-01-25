@@ -11,7 +11,15 @@
     "react": "^0.12.2",
     "watchify": "^2.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync": "^1.9.1",
+    "gulp": "^3.8.10",
+    "gulp-notify": "^2.1.0",
+    "gulp-util": "^3.0.2",
+    "pretty-hrtime": "^1.0.0",
+    "require-dir": "^0.1.0",
+    "vinyl-source-stream": "^1.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "./node_modules/.bin/watchify -t 6to5ify ./src/Registration.jsx -o ./dist/bundle.js -v"
