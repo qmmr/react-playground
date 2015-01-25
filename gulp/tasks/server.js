@@ -2,4 +2,4 @@
 
 var gulp = require('gulp')
 
-gulp.task('serve', [ 'browserify', 'browserSync' ])
+gulp.task('serve', [ 'clean', 'build', 'browserSync' ])

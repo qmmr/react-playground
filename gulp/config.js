@@ -6,10 +6,11 @@ module.exports = {
 	browserify: {
 		debug: true,
 		extensions: [ '.js', '.es6', '.jsx' ],
+		dest: dest + '/js',
 		bundleConfigs: [
 			{
-				entries: src + '/Registration.jsx',
-				dest: dest,
+				entries: src + '/App.jsx',
+				dest: dest + '/js',
 				outputName: 'bundle.js'
 			}
 		]
@@ -17,18 +18,23 @@ module.exports = {
 
 	browserSync: {
 		server: {
-			baseDir: [ dest, src ]
+			baseDir: [ dest ]
 		},
-		port: 8000,
-		files: [
-			dest + '/**/*',
-			'!' + dest + '/**/*.map'
-		]
+		port: 8000
+		// files: [
+		// 	dest + '/**/*',
+		// 	'!' + dest + '/**/*.map'
+		// ]
 	},
 
 	markup: {
-		src: src,
+		src: src + '/htdocs/**',
 		dest: dest
+	},
+
+	css: {
+		src: src + '/css/**',
+		dest: dest + '/css'
 	}
 
 }
