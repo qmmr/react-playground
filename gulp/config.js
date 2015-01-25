@@ -3,9 +3,21 @@ var dest = './dist'
 
 module.exports = {
 
+	browserify: {
+		debug: true,
+		extensions: [ '.js', '.es6', '.jsx' ],
+		bundleConfigs: [
+			{
+				entries: src + '/Registration.jsx',
+				dest: dest,
+				outputName: 'bundle.js'
+			}
+		]
+	},
+
 	browserSync: {
 		server: {
-			baseDir: [ '.', dest, src ]
+			baseDir: [ dest, src ]
 		},
 		port: 8000,
 		files: [
@@ -14,16 +26,9 @@ module.exports = {
 		]
 	},
 
-	browserify: {
-		debug: true,
-		extensions: [ '.js', '.es6', '.jsx' ],
-		bundleConfigs: [
-			{
-				entries: src + '/App.jsx',
-				dest: dest,
-				outputName: 'bundle.js'
-			}
-		]
+	markup: {
+		src: src,
+		dest: dest
 	}
 
 }

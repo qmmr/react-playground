@@ -17,7 +17,7 @@ var fieldValues = {
 	colors: []
 }
 
-var Registration = React.createClass({
+export default React.createClass({
 
 	name: 'Registration',
 
@@ -91,5 +91,3 @@ var Registration = React.createClass({
 	}
 
 })
-
-React.render(<Registration />, document.querySelector('#container'))
