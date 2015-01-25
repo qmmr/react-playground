@@ -1,9 +1,5 @@
 'use strict'
 
 var gulp = require('gulp')
-var browserSync = require('browser-sync')
-var config = require('../config')
 
-gulp.task('serve', function() {
-	browserSync(config.browserSync)
-})
+gulp.task('serve', [ 'browserify', 'browserSync' ])
