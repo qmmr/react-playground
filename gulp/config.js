@@ -5,13 +5,18 @@ module.exports = {
 
 	browserify: {
 		debug: true,
-		extensions: [ '.js', '.es6', '.jsx' ],
+		src: src,
 		dest: dest + '/js',
 		bundleConfigs: [
 			{
+				// Specify the entry point of your app
 				entries: src + '/App.jsx',
 				dest: dest + '/js',
-				outputName: 'bundle.js'
+				outputName: 'bundle.js',
+				// cache: {},
+				// packageCache: {},
+				// fullPaths: true,
+				extensions: [ '.js', '.es6', '.jsx' ]
 			}
 		]
 	},

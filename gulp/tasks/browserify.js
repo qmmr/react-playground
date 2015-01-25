@@ -1,6 +1,8 @@
 'use strict'
 
 var browserify = require('browserify')
+var browserSync = require('browser-sync')
+var watchify = require('watchify')
 var config = require('../config')
 var gulp = require('gulp')
 var gutil = require('gulp-util')
@@ -8,27 +10,28 @@ var handleErrors = require('../utils/handleErrors')
 var bundleLogger = require('../utils/bundleLogger')
 var to5ify = require('6to5ify')
 var source = require('vinyl-source-stream')
+var _ = require('lodash')
 
-gulp.task('browserify', function (cb) {
+var browserifyTask = function(cb, devMode) {
 	var queueLength = config.browserify.bundleConfigs.length
 	var createBundle
 
 	createBundle = function(options) {
 		var bundler, bundle, reportFinished
 
-		bundler = browserify({
-			cache: {},
-			packageCache: {},
-			fullPaths: true,
-			// Specify the entry point of your app
-			entries: options.entries,
-			// Add file extentions to make optional in your requires
-			extensions: options.extensions,
-			// Enable source maps!
-			debug: config.browserify.debug
-		})
+		// console.log('MARCIN :: createBundle:options, devMode ::', options, devMode)
 
-		bundle = function () {
+		if (devMode) {
+			// Add watchify args and debug (sourcemaps) option
+			_.extend(options, watchify.args, { debug: true })
+			// A watchify require/external bug that prevents proper recompiling,
+			// so (for now) we'll ignore these options during development
+			options = _.omit(options, [ 'external', 'require' ])
+		}
+
+		bundler = browserify(options)
+
+		bundle = function() {
 			// Log when bundling starts
 			bundleLogger.start(options.entries)
 
@@ -43,9 +46,32 @@ gulp.task('browserify', function (cb) {
 				// Specify the output destination
 				.pipe(gulp.dest(options.dest))
 				.on('end', reportFinished)
+				// relad your browser
+				.pipe(browserSync.reload({ stream: true }))
 		}
 
-		reportFinished = function () {
+		if (devMode) {
+			// Wrap with watchify and rebundle on changes
+			var w = watchify(bundler)
+			// Rebundle on update
+			w.on('log', function (msg) {
+					gutil.log(msg)
+				})
+				.on('update', bundle)
+
+			bundleLogger.watch(options.outputName)
+		} else {
+			// Sort out shared dependencies. bundler.require exposes modules externally
+			if (options.require) {
+				bundler.require(options.require)
+			}
+			// bundler.external excludes modules from the bundle, and expects they'll be available externally
+			if (options.external) {
+				bundler.external(options.external)
+			}
+		}
+
+		reportFinished = function() {
 			// Log when bundling completes
 			bundleLogger.end(options.entries)
 
@@ -62,5 +88,8 @@ gulp.task('browserify', function (cb) {
 
 	// create bundle for each bundleConfig
 	config.browserify.bundleConfigs.forEach(createBundle)
+}
 
-})
+gulp.task('browserify', browserifyTask)
+
+module.exports = browserifyTask

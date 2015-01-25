@@ -7,7 +7,12 @@ var App = React.createClass({
 	name: 'App',
 
 	render() {
-		return <Registration />
+		return (
+			<section className="container">
+				<h1>Multistep registration build with React.js!</h1>
+				<Registration />
+			</section>
+		)
 	}
 
 })
