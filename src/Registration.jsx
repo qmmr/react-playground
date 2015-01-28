@@ -8,6 +8,7 @@ import Survey from './Survey.jsx'
 import Results from './Results.jsx'
 // import Confirmation from './Confirmation.jsx'
 // import Success from './Success.jsx'
+import Timer from './Timer.jsx'
 
 var fieldValues = {
 	name: '',
@@ -33,6 +34,7 @@ export default React.createClass({
 		return (
 			<section className="row">
 				<h3>Step: { this.state.step }</h3>
+				<Timer />
 				<div className="progress">
 					<div className="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow={ progressValue } aria-valuemin="0" aria-valuemax="100" style={ style }>
 						<span className="sr-only">{ percentage } Complete (success)</span>
