@@ -9,6 +9,7 @@ import Results from './Results.jsx'
 // import Confirmation from './Confirmation.jsx'
 // import Success from './Success.jsx'
 import Timer from './Timer.jsx'
+import Quotes from './Quotes.jsx'
 
 var fieldValues = {
 	name: '',
@@ -72,11 +73,16 @@ export default React.createClass({
 	_showStep() {
 		switch(this.state.step) {
 			case 1:
-				return <AccountFields
+				return <Quotes
 						fieldValues={ fieldValues }
 						nextStep={ this.nextStep }
 						saveValues={ this.saveValues } />
-				break
+			// case 1:
+			// 	return <AccountFields
+			// 			fieldValues={ fieldValues }
+			// 			nextStep={ this.nextStep }
+			// 			saveValues={ this.saveValues } />
+			// 	break
 			case 2:
 				return <Survey
 						fieldValues={ fieldValues }

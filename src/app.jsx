@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Registration from './Registration.jsx'
+import Registration from './components/Registration.jsx'
 
 var App = React.createClass({
 
