@@ -1,16 +1,18 @@
 'use strict'
 
-var browserify = require('browserify')
-var browserSync = require('browser-sync')
-var watchify = require('watchify')
-var config = require('../config')
 var gulp = require('gulp')
 var gutil = require('gulp-util')
+var source = require('vinyl-source-stream')
+var sourcemaps = require('gulp-sourcemaps')
+var buffer = require('vinyl-buffer')
+var watchify = require('watchify')
+var browserify = require('browserify')
+var browserSync = require('browser-sync')
 var handleErrors = require('../utils/handleErrors')
 var bundleLogger = require('../utils/bundleLogger')
 var to5ify = require('6to5ify')
-var source = require('vinyl-source-stream')
 var _ = require('lodash')
+var config = require('../config')
 
 var browserifyTask = function(cb, devMode) {
 	var queueLength = config.browserify.bundleConfigs.length
@@ -52,9 +54,10 @@ var browserifyTask = function(cb, devMode) {
 
 		if (devMode) {
 			// Wrap with watchify and rebundle on changes
-			var w = watchify(bundler)
+			// gulp.watch('./src/**/*.jsx', bundle)
+			bundler = watchify(bundler)
 			// Rebundle on update
-			w.on('log', function (msg) {
+			bundler.on('log', function (msg) {
 					gutil.log(msg)
 				})
 				.on('update', bundle)
