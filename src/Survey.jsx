@@ -12,14 +12,20 @@ export default React.createClass({
 				<form action="">
 					<div className="checkbox">
 						<label>
-							<input ref="question_1" type="checkbox" defaultValue="1" />
-							Multiforms in React.js are great!
+							<input ref="question_1" type="checkbox" defaultChecked="checked" />
+							Multiforms in React.js are great!!!
 						</label>
 					</div>
 					<div className="checkbox">
 						<label>
-							<input ref="question_2" type="checkbox" defaultValue="2" />
+							<input ref="question_2" type="checkbox" />
 							This is the second option, it is great as well!
+						</label>
+					</div>
+					<div className="checkbox">
+						<label>
+							<input ref="question_3" type="checkbox" />
+							This is the third option.
 						</label>
 					</div>
 					<button className="btn btn-primary" onClick={ this._prevStep }>Prev step</button>
@@ -38,8 +44,8 @@ export default React.createClass({
 	_nextStep(event) {
 		let data = {
 			survey: {
-				question_1: this.refs.question_1.getDOMNode().value,
-				question_2: this.refs.question_2.getDOMNode().value
+				question_1: this.refs.question_1.getDOMNode().checked,
+				question_2: this.refs.question_2.getDOMNode().checked
 			}
 		}
 

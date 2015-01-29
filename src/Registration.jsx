@@ -13,8 +13,8 @@ var fieldValues = {
 	name: '',
 	email: '',
 	password: '',
-	age: '',
-	colors: []
+	passwordConfirmation: '',
+	survey: []
 }
 
 export default React.createClass({

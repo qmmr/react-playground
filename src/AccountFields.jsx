@@ -17,6 +17,7 @@ export default React.createClass({
 		let data = {
 			name: this.refs.name.getDOMNode().value,
 			password: this.refs.password.getDOMNode().value,
+			passwordConfirm: this.refs.passwordConfirm.getDOMNode().value,
 			email: this.refs.email.getDOMNode().value
 		}
 
@@ -37,7 +38,7 @@ export default React.createClass({
 				</div>
 				<div className="form-group">
 					<label htmlFor="password-confirm">Confirm password</label>
-					<input ref="password-confirm" className="form-control" type="password" name="password-confirm" id="password-confirm" placeholder="Confirm your password..." />
+					<input ref="passwordConfirm" className="form-control" type="password" name="password-confirm" id="password-confirm" placeholder="Confirm your password..." />
 				</div>
 				<div className="form-group">
 					<label htmlFor="email">Email</label>
