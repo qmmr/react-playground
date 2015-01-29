@@ -21,18 +21,6 @@ var browserifyTask = function(cb, devMode) {
 	createBundle = function(options) {
 		var bundler, bundle, reportFinished
 
-		// console.log('MARCIN :: createBundle:options, devMode ::', options, devMode)
-
-		if (devMode) {
-			// Add watchify args and debug (sourcemaps) option
-			_.extend(options, watchify.args, { debug: true })
-			// A watchify require/external bug that prevents proper recompiling,
-			// so (for now) we'll ignore these options during development
-			options = _.omit(options, [ 'external', 'require' ])
-		}
-
-		bundler = browserify(options)
-
 		bundle = function() {
 			// Log when bundling starts
 			bundleLogger.start(options.entries)
@@ -45,6 +33,11 @@ var browserifyTask = function(cb, devMode) {
 				// Use vinyl-source-stream to make the stream gulp compatible.
 				// Specifiy the desired output filename here.
 				.pipe(source(options.outputName))
+				// sourcemaps
+				.pipe(buffer())
+				// loads map from browserify file
+				.pipe(sourcemaps.init({ loadMaps: true }))
+				.pipe(sourcemaps.write('./'))
 				// Specify the output destination
 				.pipe(gulp.dest(options.dest))
 				.on('end', reportFinished)
@@ -53,14 +46,24 @@ var browserifyTask = function(cb, devMode) {
 		}
 
 		if (devMode) {
+			// Add watchify args and debug (sourcemaps) option
+			_.extend(options, watchify.args, { debug: true })
+			// A watchify require/external bug that prevents proper recompiling,
+			// so (for now) we'll ignore these options during development
+			options = _.omit(options, [ 'external', 'require' ])
+		}
+
+		bundler = browserify(options)
+		bundler.on('update', bundle)
+
+		if (devMode) {
 			// Wrap with watchify and rebundle on changes
 			// gulp.watch('./src/**/*.jsx', bundle)
 			bundler = watchify(bundler)
 			// Rebundle on update
 			bundler.on('log', function (msg) {
-					gutil.log(msg)
-				})
-				.on('update', bundle)
+				gutil.log(msg)
+			})
 
 			bundleLogger.watch(options.outputName)
 		} else {
