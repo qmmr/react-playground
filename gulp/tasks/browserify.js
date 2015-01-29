@@ -1,16 +1,18 @@
 'use strict'
 
-var browserify = require('browserify')
-var browserSync = require('browser-sync')
-var watchify = require('watchify')
-var config = require('../config')
 var gulp = require('gulp')
 var gutil = require('gulp-util')
+var source = require('vinyl-source-stream')
+var sourcemaps = require('gulp-sourcemaps')
+var buffer = require('vinyl-buffer')
+var watchify = require('watchify')
+var browserify = require('browserify')
+var browserSync = require('browser-sync')
 var handleErrors = require('../utils/handleErrors')
 var bundleLogger = require('../utils/bundleLogger')
 var to5ify = require('6to5ify')
-var source = require('vinyl-source-stream')
 var _ = require('lodash')
+var config = require('../config')
 
 var browserifyTask = function(cb, devMode) {
 	var queueLength = config.browserify.bundleConfigs.length
@@ -18,18 +20,6 @@ var browserifyTask = function(cb, devMode) {
 
 	createBundle = function(options) {
 		var bundler, bundle, reportFinished
-
-		// console.log('MARCIN :: createBundle:options, devMode ::', options, devMode)
-
-		if (devMode) {
-			// Add watchify args and debug (sourcemaps) option
-			_.extend(options, watchify.args, { debug: true })
-			// A watchify require/external bug that prevents proper recompiling,
-			// so (for now) we'll ignore these options during development
-			options = _.omit(options, [ 'external', 'require' ])
-		}
-
-		bundler = browserify(options)
 
 		bundle = function() {
 			// Log when bundling starts
@@ -43,6 +33,11 @@ var browserifyTask = function(cb, devMode) {
 				// Use vinyl-source-stream to make the stream gulp compatible.
 				// Specifiy the desired output filename here.
 				.pipe(source(options.outputName))
+				// sourcemaps
+				.pipe(buffer())
+				// loads map from browserify file
+				.pipe(sourcemaps.init({ loadMaps: true }))
+				.pipe(sourcemaps.write('./'))
 				// Specify the output destination
 				.pipe(gulp.dest(options.dest))
 				.on('end', reportFinished)
@@ -51,13 +46,24 @@ var browserifyTask = function(cb, devMode) {
 		}
 
 		if (devMode) {
+			// Add watchify args and debug (sourcemaps) option
+			_.extend(options, watchify.args, { debug: true })
+			// A watchify require/external bug that prevents proper recompiling,
+			// so (for now) we'll ignore these options during development
+			options = _.omit(options, [ 'external', 'require' ])
+		}
+
+		bundler = browserify(options)
+		bundler.on('update', bundle)
+
+		if (devMode) {
 			// Wrap with watchify and rebundle on changes
-			var w = watchify(bundler)
+			// gulp.watch('./src/**/*.jsx', bundle)
+			bundler = watchify(bundler)
 			// Rebundle on update
-			w.on('log', function (msg) {
-					gutil.log(msg)
-				})
-				.on('update', bundle)
+			bundler.on('log', function (msg) {
+				gutil.log(msg)
+			})
 
 			bundleLogger.watch(options.outputName)
 		} else {
