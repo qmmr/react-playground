@@ -14,20 +14,20 @@ export default React.createClass({
 			{ this._getListElements() }
 			</ul>
 		)
-	}
+	},
 
 	getClassNames() {
 		return cx({
 			'list-quotes': true
 		})
-	}
+	},
 
 	_getQuotes() {
 		return [ 'list of funny quotes', 'that is correct' ]
-	}
+	},
 
 	_getListElements() {
-		let createListItem = (quote, i) => <li key={ idx }>{ quote }</li>
+		let createListItem = (quote, idx) => <li key={ idx }>{ quote }</li>
 
 		return this._getQuotes().map(createListItem)
 	}
