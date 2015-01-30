@@ -8,6 +8,18 @@ export default React.createClass({
 
 	display: 'Quotes',
 
+	getInitialState() {
+		return {
+			quotes: []
+		}
+	},
+
+	onSubmitQuote(quote) {
+		let mergedQuotes = this.state.quotes.concat([ quote ])
+
+		this.state.setState({ quotes: mergedQuotes })
+	},
+
 	render() {
 		return (
 			<ul className={ this.getClassNames }>
