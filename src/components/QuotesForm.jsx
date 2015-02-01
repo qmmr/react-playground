@@ -18,16 +18,18 @@ export default React.createClass({
 
 	render() {
 		return (
-			<form onSubmit={ this._onSubmit }>
-				<label htmlFor='quote'>
+			<form className='form-horizontal' onSubmit={ this._onSubmit }>
+				<div className="form-group">
+					<label htmlFor='quote'> Submit your quote </label>
 					<input
 						id='quote'
+						className='form-control'
 						type='text'
 						onChange={ this._onChangeText }
 						value={ this.state.text }
 						placeholder='Please enter your quote of the day...' />
-				</label>
-				<input type='submit' value='Submit quote' />
+				</div>
+				<button className='btn btn-primary btn-block' type='submit'>Submit quote</button>
 			</form>
 		)
 	},
