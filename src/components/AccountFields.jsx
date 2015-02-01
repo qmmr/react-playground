@@ -4,7 +4,17 @@ import React from 'react'
 
 export default React.createClass({
 
-	name: 'AccountFields',
+	displayName: 'AccountFields',
+
+	propTypes: {
+		fieldValues: React.PropTypes.shape({
+			name: React.PropTypes.string,
+			email: React.PropTypes.string,
+			password: React.PropTypes.string,
+			passwordConfirmation: React.PropTypes.string,
+			survey: React.PropTypes.arrayOf(React.PropTypes.string)
+		})
+	},
 
 	getInitialState() {
 		return {
@@ -13,7 +23,57 @@ export default React.createClass({
 		}
 	},
 
-	nextStep() {
+	render() {
+		return (
+			<div className="col-md-8">
+				<div className="form-group">
+					<label htmlFor="name">Name</label>
+					<input
+						ref="name"
+						className="form-control"
+						type="text"
+						name="name"
+						id="name"
+						placeholder="Your name..."
+						defaultValue={ this.state.name } />
+				</div>
+				<div className="form-group">
+					<label htmlFor="password">Password</label>
+					<input
+						ref="password"
+						className="form-control"
+						type="password"
+						name="password"
+						id="password"
+						placeholder="Enter your password..." />
+				</div>
+				<div className="form-group">
+					<label htmlFor="password-confirm">Confirm password</label>
+					<input
+						ref="passwordConfirm"
+						className="form-control"
+						type="password"
+						name="password-confirm"
+						id="password-confirm"
+						placeholder="Confirm your password..." />
+				</div>
+				<div className="form-group">
+					<label htmlFor="email">Email</label>
+					<input
+						ref="email"
+						className="form-control"
+						type="email"
+						name="email"
+						id="email"
+						placeholder="Enter your email..."
+						defaultValue={ this.state.email } />
+				</div>
+				<button className="btn btn-primary pull-right" onClick={ this._nextStep }>Next step</button>
+			</div>
+		)
+	},
+
+	_nextStep() {
 		let data = {
 			name: this.refs.name.getDOMNode().value,
 			password: this.refs.password.getDOMNode().value,
@@ -23,29 +83,5 @@ export default React.createClass({
 
 		this.props.saveValues(data)
 		this.props.nextStep()
-	},
-
-	render() {
-		return (
-			<div className="col-md-8">
-				<div className="form-group">
-					<label htmlFor="name">Name</label>
-					<input ref="name" className="form-control" type="text" name="name" id="name" placeholder="Your name..." defaultValue={ this.state.name } />
-				</div>
-				<div className="form-group">
-					<label htmlFor="password">Password</label>
-					<input ref="password" className="form-control" type="password" name="password" id="password" placeholder="Enter your password..." />
-				</div>
-				<div className="form-group">
-					<label htmlFor="password-confirm">Confirm password</label>
-					<input ref="passwordConfirm" className="form-control" type="password" name="password-confirm" id="password-confirm" placeholder="Confirm your password..." />
-				</div>
-				<div className="form-group">
-					<label htmlFor="email">Email</label>
-					<input ref="email" className="form-control" type="email" name="email" id="email" placeholder="Enter your email..." defaultValue={ this.state.email } />
-				</div>
-				<button className="btn btn-primary pull-right" onClick={ this.nextStep }>Next step</button>
-			</div>
-		)
 	}
 })
