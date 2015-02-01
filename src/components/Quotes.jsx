@@ -2,33 +2,30 @@
 
 import React from 'react/addons'
 
-var cx = React.addons.classSet
+import QuotesForm from './QuotesForm.jsx'
+import QuotesList from './QuotesList.jsx'
 
 export default React.createClass({
 
-	display: 'Quotes',
+	name: 'Quotes',
+
+	getInitialState() {
+		return {
+			quotes: [ 'Veni Vidi Vici', 'that is correct' ]
+		}
+	},
+
+	onSubmitQuote(quote) {
+		this.setState({ quotes: this.state.quotes.concat([ quote ]) })
+	},
 
 	render() {
 		return (
-			<ul className={ this.getClassNames }>
-			{ this._getListElements() }
-			</ul>
+			<div>
+				<h2>Quotes</h2>
+				<QuotesList quotes={ this.state.quotes } />
+				<QuotesForm onSubmit={ this.onSubmitQuote } />
+			</div>
 		)
-	},
-
-	getClassNames() {
-		return cx({
-			'list-quotes': true
-		})
-	},
-
-	_getQuotes() {
-		return [ 'list of funny quotes', 'that is correct' ]
-	},
-
-	_getListElements() {
-		let createListItem = (quote, idx) => <li key={ idx }>{ quote }</li>
-
-		return this._getQuotes().map(createListItem)
 	}
 })
