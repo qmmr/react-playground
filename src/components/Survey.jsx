@@ -6,6 +6,19 @@ export default React.createClass({
 
 	displayName: 'Survey',
 
+	propTypes: {
+		fieldValues: React.PropTypes.shape({
+			name: React.PropTypes.string,
+			email: React.PropTypes.string,
+			password: React.PropTypes.string,
+			passwordConfirmation: React.PropTypes.string,
+			survey: React.PropTypes.arrayOf(React.PropTypes.string)
+		}),
+		prevStep: React.PropTypes.func,
+		nextStep: React.PropTypes.func,
+		saveValues: React.PropTypes.func
+	},
+
 	render() {
 		return (
 			<div className="col-md-8 col-md-offset-2">

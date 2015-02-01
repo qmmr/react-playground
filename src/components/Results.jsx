@@ -4,7 +4,19 @@ import React from 'react'
 
 export default React.createClass({
 
-	name: 'Results',
+	displayName: 'Results',
+
+	propTypes: {
+		fieldValues: React.PropTypes.shape({
+			name: React.PropTypes.string,
+			email: React.PropTypes.string,
+			password: React.PropTypes.string,
+			passwordConfirmation: React.PropTypes.string,
+			survey: React.PropTypes.arrayOf(React.PropTypes.string)
+		}),
+		prevStep: React.PropTypes.func,
+		reset: React.PropTypes.func
+	},
 
 	getResults() {
 		let values = this.props.fieldValues

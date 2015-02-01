@@ -13,7 +13,9 @@ export default React.createClass({
 			password: React.PropTypes.string,
 			passwordConfirmation: React.PropTypes.string,
 			survey: React.PropTypes.arrayOf(React.PropTypes.string)
-		})
+		}).isRequired,
+		nextStep: React.PropTypes.func.isRequired,
+		saveValues: React.PropTypes.func.isRequired
 	},
 
 	getInitialState() {

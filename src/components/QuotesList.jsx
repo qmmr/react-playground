@@ -12,14 +12,14 @@ export default React.createClass({
 
 	render() {
 		return (
-			<ul>
+			<ul className='list-group'>
 				{ this._getQuotes() }
 			</ul>
 		)
 	},
 
 	_getQuotes() {
-		let createListItem = (quote, idx) => <li key={ idx }>{ quote }</li>
+		let createListItem = (quote, idx) => <li key={ idx } className='list-group-item'>{ quote }</li>
 
 		return this.props.quotes.map(createListItem)
 	}

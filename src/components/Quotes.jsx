@@ -9,6 +9,19 @@ export default React.createClass({
 
 	displayName: 'Quotes',
 
+	propTypes: {
+		fieldValues: React.PropTypes.shape({
+			name: React.PropTypes.string,
+			email: React.PropTypes.string,
+			password: React.PropTypes.string,
+			passwordConfirmation: React.PropTypes.string,
+			survey: React.PropTypes.arrayOf(React.PropTypes.string)
+		}),
+		prevStep: React.PropTypes.func,
+		nextStep: React.PropTypes.func,
+		saveValues: React.PropTypes.func
+	},
+
 	getInitialState() {
 		return {
 			quotes: [ 'Veni Vidi Vici', 'that is correct' ]
