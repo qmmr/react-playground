@@ -1,24 +1,13 @@
 'use strict'
 
 import React from 'react'
-
-var setIntervalMixin = {
-	componentWillMount() {
-		this.intervals = []
-	},
-	setInterval() {
-		this.intervals.push(setInterval.apply(null, arguments))
-	},
-	componentWillUnmount() {
-		this.intervals.forEach(clearInterval)
-	}
-}
+import intervalMixin from '../mixins/intervalMixin'
 
 export default React.createClass({
 
 	displayName: 'Timer',
 
-	mixins: [ setIntervalMixin ],
+	mixins: [ intervalMixin ],
 
 	getInitialState() {
 		return { time: 0 }
