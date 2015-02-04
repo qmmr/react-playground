@@ -58,7 +58,6 @@ var browserifyTask = function(cb, devMode) {
 
 		if (devMode) {
 			// Wrap with watchify and rebundle on changes
-			// gulp.watch('./src/**/*.jsx', bundle)
 			bundler = watchify(bundler)
 			// Rebundle on update
 			bundler.on('log', function (msg) {
