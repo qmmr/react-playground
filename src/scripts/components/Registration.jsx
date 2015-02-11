@@ -5,11 +5,11 @@ import objectAssign from 'object-assign'
 
 import AccountFields from './AccountFields.jsx'
 import Survey from './Survey.jsx'
+import Quotes from './Quotes.jsx'
 import Results from './Results.jsx'
 // import Confirmation from './Confirmation.jsx'
 // import Success from './Success.jsx'
 import Timer from './Timer.jsx'
-import Quotes from './Quotes.jsx'
 
 var fieldValues = {
 	name: '',

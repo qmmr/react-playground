@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Registration from './scripts/components/Registration.jsx'
+import Registration from './Registration.jsx'
 
-var App = React.createClass({
+export default React.createClass({
 
-	name: 'App',
+	displayName: 'App',
 
 	render() {
 		return (
@@ -16,5 +16,3 @@ var App = React.createClass({
 	}
 
 })
-
-React.render(<App />, document.querySelector('#container'))

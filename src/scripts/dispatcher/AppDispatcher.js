@@ -1,23 +1,18 @@
-import { Dispatcher } from 'flux'
+import Dispatcher from 'flux/lib/Dispatcher'
+import { SERVER_ACTION, VIEW_ACTION } from '../constants/sourceTypes'
 
-
-var { VIEW_ACTION, SERVER_ACTION } from '../constants/sourceTypes'
-var AppDispatcher = new AppDispatcher()
-
-AppDispatcher.handleViewAction = function(action) {
-	let payload = {
-		source: VIEW_ACTION,
-		action
+class AppDispatcher extends Dispatcher {
+	constructor() {
+		super()
 	}
-	this.dispatch(payload)
-}
 
-AppDispatcher.handleServerAction = function(action) {
-	let payload = {
-		source: SERVER_ACTION,
-		action
+	handleViewAction(action) {
+		this.dispatch({ source: VIEW_ACTION, action })
 	}
-	this.dispatch(payload)
+
+	handleServerAction(action) {
+		this.dispatch({ source: SERVER_ACTION, action })
+	}
 }
 
 export default AppDispatcher

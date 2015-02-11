@@ -26,7 +26,6 @@ var browserifyTask = function(cb, devMode) {
 			bundleLogger.start(options.entries)
 
 			return bundler
-				.transform(to5ify)
 				.bundle()
 				// Report compile errors
 				.on('error', handleErrors)
@@ -34,10 +33,10 @@ var browserifyTask = function(cb, devMode) {
 				// Specifiy the desired output filename here.
 				.pipe(source(options.outputName))
 				// sourcemaps
-				.pipe(buffer())
+				// .pipe(buffer())
 				// loads map from browserify file
-				.pipe(sourcemaps.init({ loadMaps: true }))
-				.pipe(sourcemaps.write('./'))
+				// .pipe(sourcemaps.init({ loadMaps: true }))
+				// .pipe(sourcemaps.write('./'))
 				// Specify the output destination
 				.pipe(gulp.dest(options.dest))
 				.on('end', reportFinished)
@@ -54,7 +53,8 @@ var browserifyTask = function(cb, devMode) {
 		}
 
 		bundler = browserify(options)
-		bundler.on('update', bundle)
+		bundler.transform(to5ify)
+			.on('update', bundle)
 
 		if (devMode) {
 			// Wrap with watchify and rebundle on changes
