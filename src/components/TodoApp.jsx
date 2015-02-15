@@ -5,23 +5,15 @@ export default React.createClass({
 
 	displayName: 'TodoApp',
 
-	componentWillMount() {
-		this.FBURL = 'https://favorite-movies.firebaseio.com/'
-		this.firebaseRef = new Firebase(`${this.FBURL}items`)
-		this.firebaseRef.on('child_added', (dataSnapshot) => {
-			this.items.push(dataSnapshot.val())
-			this.setState({ items: this.items })
-		})
-	},
+	FBURL: 'https://firetodoapp.firebaseio.com/items',
 
-	componentWillUnmount() {
-		this.firebaseRef.off()
+	mixins: [ ReactFireMixin ],
+
+	componentWillMount() {
+		this.bindAsArray(new Firebase(this.FBURL), 'items')
 	},
 
 	getInitialState() {
-		// Firebase items are landing here
-		this.items = []
-
 		return {
 			items: [],
 			text: ''
@@ -35,8 +27,18 @@ export default React.createClass({
 	handleSubmit(e) {
 		e.preventDefault()
 
-		this.firebaseRef.push({ text: this.state.text })
-		this.setState({ text: '' })
+		if (this.state.text.trim()) {
+			this.firebaseRefs.items.push({
+				text: this.state.text,
+				id: +new Date()
+			})
+			this.setState({ text: '' })
+		}
+	},
+
+	removeItem(key) {
+		console.log('%cMARCIN :: TodoApp.jsx:40 :: key', 'background: #222; color: lime', key)
+		// this.firebaseRefs.items.push({ text: 'Firebase' })
 	},
 
 	render() {
@@ -52,7 +54,7 @@ export default React.createClass({
 					</form>
 				</header>
 
-				<TodoList items={ this.state.items } />
+				<TodoList items={ this.state.items } remove={ this.removeItem } />
 
 			</div>
 		)
