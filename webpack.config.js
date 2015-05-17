@@ -22,7 +22,7 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{ test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+			{ test: /\.js$/, loader: 'babel', exclude: /node_modules/, query: { optional: ['es7.classProperties'], stage: 0 } },
 			{ test: /\.jsx$/, loaders: [ 'react-hot', 'babel' ], include: path.join(__dirname, 'app') },
 			{ test: /\.html$/, loader: 'raw', exclude: /node_modules/ },
 			{ test: /\.css$/, loader: 'style!css', exclude: /node_modules/ }
