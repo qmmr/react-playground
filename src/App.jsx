@@ -1,5 +1,4 @@
 import React from 'react'
-import Badge from './Badge.jsx'
 import User from './User.jsx'
 
 //var App = React.createClass({
@@ -30,10 +29,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className='jumbotron'>
-				<h1>React.js v0.13 with webpack hot-loader</h1>
-				<div className='well'>Hey! { this.props.title }</div>
-				<Badge amount={ 42 } />
-				<User login='qmmr' />
+				<div className='row'>
+					<User login='qmmr' />
+					<User login='cesarenaldi' />
+					<User login='wycats' />
+				</div>
 			</div>
 		)
 	}

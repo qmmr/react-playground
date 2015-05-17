@@ -9,7 +9,7 @@ module.exports = {
 		'./src/index' // Your appʼs entry point
 	],
 	output: {
-		path: path.join(__dirname + 'src'),
+		path: path.join(__dirname, 'src'),
 		filename: 'bundle.js',
 		publicPath: '/src/'
 	},

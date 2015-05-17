@@ -5,7 +5,7 @@ var HOST = 'localhost'
 var PORT = 8000
 
 new WebpackDevServer(webpack(config), {
-	contentBase: 'app',
+	contentBase: 'src',
 	publicPath: config.output.publicPath,
 	hot: true,
 	historyApiFallback: true
