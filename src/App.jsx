@@ -1,5 +1,6 @@
 import React from 'react'
 import Badge from './Badge.jsx'
+import User from './User.jsx'
 
 //var App = React.createClass({
 	//getDefaultProps: function () {
@@ -32,6 +33,7 @@ class App extends React.Component {
 				<h1>React.js v0.13 with webpack hot-loader</h1>
 				<div className='well'>Hey! { this.props.title }</div>
 				<Badge amount={ 42 } />
+				<User login='qmmr' />
 			</div>
 		)
 	}
