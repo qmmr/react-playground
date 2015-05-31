@@ -1,45 +1,33 @@
 import React from 'react'
-import User from './User.jsx'
-
-//var App = React.createClass({
-	//getDefaultProps: function () {
-		//return {
-			//title: 'React is awesome!'
-		//}
-	//},
-
-	//render: function () {
-		//return (
-			//<div className='jumbotron'>
-				//<h1>React.js v0.13 with webpack hot-loader</h1>
-				//<div className='well'>{ this.props.title }</div>
-				//<Badge amount={ 42 } />
-			//</div>
-		//)
-	//}
-//})
+import Map from './Map.jsx'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.state = { title: props.title }
+		this.state = { title: props.title, query: '' }
+	}
+
+	handleChange(e) {
+		console.log('handleChange', e)
+		//this.setState({ query: e.target.value })
 	}
 
 	render() {
+		var coords = { latitude: 51.5558, longitude: -0.2797 }
 		return (
 			<div className='jumbotron'>
 				<div className='row'>
-					<User login='qmmr' />
-					<User login='cesarenaldi' />
-					<User login='wycats' />
+					<h1>{ this.props.title }</h1>
+					<h2>{ this.state.query ? this.state.query : 'Default' }</h2>
+					<input type='text' onChange={ this.handleChange } value={ this.state.query } />
+					<Map coords={ coords } />
 				</div>
 			</div>
 		)
 	}
 }
 
-App.defaultProps = { title: 'React is awesome!' }
+App.defaultProps = { title: 'Sample map with Mapbox.js' }
 
 export default App
-
